@@ -1,3 +1,4 @@
+import os
 import sys
 import pdfplumber
 
@@ -29,6 +30,9 @@ for pdf_file in sys.argv[1:]:
     for bead, count in pdf_beads.items():
         beads[bead] = beads.get(bead, 0) + count
 
-with open("output_" + sys.argv[1].replace(".pdf", "") + ".csv", 'w') as f:
+if not os.path.exists("output"):
+    os.mkdir("output")
+    
+with open("output/output_" + sys.argv[1].replace(".pdf", "") + ".csv", 'w') as f:
     for bead, count in beads.items():
         f.write(f"{bead},{count}\n")
