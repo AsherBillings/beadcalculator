@@ -13,16 +13,18 @@ def get_beads_from_pdf(pdf_file):
                     curBeads.append(line)
     return curBeads
 
-if not sys.argv[1]:
+if not sys.argv[1:]:
     print("Please provide pdf file(s) exported from Beadifier as an argument.")
     sys.exit(1)
 
-if not sys.argv[1].endswith(".pdf"):
-    print("File is not a pdf file.")
-    sys.exit(1)
+for x in sys.argv[1:]:
+    if not x.endswith(".pdf"):
+        print("File is not a pdf file.")
+        sys.exit(1)
 
 beads = []
-beads.extend(get_beads_from_pdf(sys.argv[1]))
+for pdf_file in sys.argv[1:]:
+    beads.extend(get_beads_from_pdf(pdf_file))
 
 with open("output_" + sys.argv[1].replace(".pdf", "") + ".csv", 'w') as f:
     for bead in beads:
