@@ -1,4 +1,5 @@
 import sys
+import time
 
 beads = {}
 
@@ -12,5 +13,7 @@ for a in sys.argv[1:]:
             bead, count = x.strip().split(",")
             beads[bead] = beads.get(bead, 0) + int(count)
 
-for bead, count in beads.items():
-    print(f"{bead}: {count}")
+curTime = time.strftime("%Y%m%d-%H%M%S", time.localtime())
+with open("output_" + curTime + ".csv", 'w') as f:
+    for bead, count in beads.items():
+        f.write(f"{bead},{count}\n")
